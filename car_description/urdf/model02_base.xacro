@@ -1,0 +1,39 @@
+<robot name="car_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 设置 base_footprint  -->
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <sphere radius="0.001" />
+            </geometry>
+        </visual>
+    </link>
+    <!-- 底盘 -->
+    <link name="car_base_link">
+        <visual>
+            <geometry>
+                <box size="${base_link_length} ${base_link_width} ${base_link_height}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name="yellow">
+                <color rgba="0.8 0.3 0.1 0.5" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${base_link_length} ${base_link_width} ${base_link_height}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </collision>
+        <xacro:Box_inertial_matrix m="${base_link_mass}" l="${base_link_length}" w="${base_link_width}" h="${base_link_height}" />
+    </link>
+    <!-- 基底与底盘的关节 -->
+    <joint name="base_link2base_footprint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="car_base_link"/>
+        <origin xyz="0 0 ${base_joint_z}" />
+    </joint>
+    <!-- 底盘颜色 -->
+    <gazebo reference="base_link">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+</robot>

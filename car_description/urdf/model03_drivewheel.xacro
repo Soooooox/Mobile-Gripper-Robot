@@ -1,0 +1,41 @@
+<robot name="drive_wheel" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:macro name="drive_wheel_func" params="wheel_name flag" >
+
+        <link name="${wheel_name}_drive">
+            <visual>
+                <geometry>
+                    <cylinder radius="${drive_wheel_radius}" length="${drive_wheel_width}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+                <material name="wheel_color">
+                    <color rgba="0 0 0 1" />
+                </material>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <cylinder radius="${drive_wheel_radius}" length="${drive_wheel_width}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            </collision>
+            
+            <xacro:cylinder_inertial_matrix m="${drive_wheel_mass}" r="${drive_wheel_radius}" h="${drive_wheel_width}" />
+        </link>
+
+        <joint name="${wheel_name}_drive2link" type="continuous">
+            <parent link="car_base_link"  />
+            <child link="${wheel_name}_drive" />
+            <origin xyz="${drive_joint_x} ${drive_joint_y * flag} ${drive_joint_z}" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <gazebo reference="${wheel_name}_drive">
+            <material>Gazebo/Red</material>
+        </gazebo>
+
+    </xacro:macro>
+
+    <xacro:drive_wheel_func wheel_name="left" flag="1" />
+    <xacro:drive_wheel_func wheel_name="right" flag="-1" />
+</robot>

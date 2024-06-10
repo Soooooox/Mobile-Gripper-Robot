@@ -1,0 +1,63 @@
+<robot name="laser" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <!-- <xacro:include filename="car_info.xacro" /> -->
+
+    <!-- 雷达支架 -->
+    <link name="sup">
+        <visual>
+            <geometry>
+                <cylinder radius="${sup_radius}" length="${sup_length}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <material name="red">
+                <color rgba="0.8 0.2 0.0 0.8" />
+            </material>
+        </visual>
+        
+        <collision>
+            <geometry>
+                <cylinder radius="${sup_radius}" length="${sup_length}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        </collision>
+        <xacro:cylinder_inertial_matrix m="${sup_mass}" r="${sup_radius}" h="${sup_length}" />
+    </link>
+
+    <joint name="sup2base_link" type="fixed">
+        <parent link="car_base_link" />
+        <child link="sup" />
+        <origin xyz="${sup_x} ${sup_y} ${sup_z}" />
+    </joint>
+
+    <link name="laser">
+        <visual>
+            <geometry>
+                <cylinder radius="${laser_radius}" length="${laser_length}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <material name="black" />
+        </visual>
+       
+        <collision>
+            <geometry>
+                <cylinder radius="${laser_radius}" length="${laser_length}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        </collision>
+        <xacro:cylinder_inertial_matrix m="${laser_mass}" r="${laser_radius}" h="${laser_length}" />
+    </link>
+
+    <joint name="laser2sup" type="fixed">
+        <parent link="sup" />
+        <child link="laser" />
+        <origin xyz="${laser_x} ${laser_y} ${laser_z}" />
+    </joint>
+
+    <gazebo reference="sup">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="laser">
+        <material>Gazebo/Black</material>
+    </gazebo>
+</robot>

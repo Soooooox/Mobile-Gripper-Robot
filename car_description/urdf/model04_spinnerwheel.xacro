@@ -1,0 +1,79 @@
+<robot name="wheel" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:macro name="spinner_wheel_front_func" params="wheel_name flag" >
+
+        <link name="${wheel_name}_spinner">
+            <visual>
+                <geometry>
+                    <sphere radius="${spinner_wheel_radius}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 1.0" />
+                </material>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <sphere radius="${spinner_wheel_radius}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </collision>
+
+            <xacro:sphere_inertial_matrix m="${spinner_wheel_mass}" r="${spinner_wheel_radius}" />
+        </link>
+
+        <joint name="${wheel_name}_spinner2link" type="continuous">
+            <parent link="car_base_link" />
+            <child link="${wheel_name}_spinner" />
+            <origin xyz="${spinner_joint_x} ${spinner_joint_y * flag} ${spinner_joint_z}" rpy="0 0 0" />
+            <axis xyz="1 1 1" />
+        </joint>
+
+        <gazebo reference="${wheel_name}_spinner">
+            <material>Gazebo/Red</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:spinner_wheel_front_func wheel_name="left_front" flag="1"  />
+    <xacro:spinner_wheel_front_func wheel_name="right_front" flag="-1" />
+
+    <xacro:macro name="spinner_wheel_back_func" params="wheel_name flag" >
+
+        <link name="${wheel_name}_spinner">
+            <visual>
+                <geometry>
+                    <sphere radius="${spinner_wheel_radius}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 1.0" />
+                </material>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <sphere radius="${spinner_wheel_radius}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </collision>
+
+            <xacro:sphere_inertial_matrix m="${spinner_wheel_mass}" r="${spinner_wheel_radius}" />
+        </link>
+
+        <joint name="${wheel_name}_spinner2link" type="continuous">
+            <parent link="car_base_link" />
+            <child link="${wheel_name}_spinner" />
+            <origin xyz="${spinner_joint_x * -1} ${spinner_joint_y * flag} ${spinner_joint_z}" rpy="0 0 0" />
+            <axis xyz="1 1 1" />
+        </joint>
+
+        <gazebo reference="${wheel_name}_spinner">
+            <material>Gazebo/Red</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:spinner_wheel_back_func wheel_name="left_back" flag="1"  />
+    <xacro:spinner_wheel_back_func wheel_name="right_back" flag="-1" />
+
+</robot>

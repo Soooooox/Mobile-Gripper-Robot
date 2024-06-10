@@ -1,0 +1,16 @@
+<launch>
+    <!-- 设置地图的配置文件 -->
+    <include file="$(find robot_nav)/launch/car_map_server.launch" />
+
+    <!-- 启动AMCL节点 -->
+    <include file="$(find robot_nav)/launch/car_amcl.launch" />
+
+    <!-- 运行move_base节点 -->
+    <include file="$(find robot_nav)/launch/car_path.launch" />
+
+    <!-- 运行rviz -->
+    <!-- <node pkg="joint_state_publisher" name="joint_state_publisher" type="joint_state_publisher" />
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" /> -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find robot_nav)/config/car_nav.rviz"/>
+
+</launch>

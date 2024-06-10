@@ -1,0 +1,8 @@
+<launch>
+ 
+    <include file="$(find robot_gazebo)/launch/car_arm.launch" />
+    <include file="$(find robot_nav)/launch/car_nav.launch" />
+    <node type="yolo_detect.py" pkg="pick_and_move" name="detect"  />
+    <node type="test.py" pkg="pick_and_move" name="test"  />
+    
+</launch>

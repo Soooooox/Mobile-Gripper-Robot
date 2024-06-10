@@ -1,0 +1,7 @@
+<launch>
+    <rosparam file="$(find robot_gazebo)/config/arm_gazebo_joint_states.yaml" command="load"/>
+
+    <node name="joint_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" ns="/arm" args="joint_state_controller" />
+
+</launch>

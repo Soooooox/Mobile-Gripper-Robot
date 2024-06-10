@@ -1,0 +1,10 @@
+<robot name="car" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="model_inertial_matrix.xacro" />
+    <xacro:include filename="model01_property.xacro" />
+    <xacro:include filename="model02_base.xacro" />
+    <xacro:include filename="model03_drivewheel.xacro" />
+    <xacro:include filename="model04_spinnerwheel.xacro" />
+    <xacro:include filename="model05_laser.xacro" />
+    <xacro:include filename="gazebo01_move.xacro" />
+    <xacro:include filename="gazebo02_laser.xacro" />
+</robot>

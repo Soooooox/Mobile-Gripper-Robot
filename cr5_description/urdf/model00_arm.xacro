@@ -1,0 +1,11 @@
+<robot name="arm" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="model01_cr5.urdf" />
+    <xacro:include filename="model02_gripper.urdf" />
+
+    <joint name="gripper2cr5" type="fixed">
+        <parent link="Link6"/>
+        <child link="gripper_base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <xacro:include filename="gazebo_arm.xacro" />
+</robot>

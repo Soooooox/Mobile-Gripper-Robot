@@ -1,0 +1,19 @@
+<robot name="robot" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="$(find cr5_description)/urdf/model00_arm.xacro" />
+    <link name="world"/>
+    <joint name="arm2world" type="fixed">
+        <parent link="world"/>
+        <child link="dummy_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+  <xacro:include filename="$(find camera_description)/urdf/ur_d435i.xacro" />
+  <xacro:ur_d435i />
+
+  <joint name="ur_d435i_base_joint" type="fixed">
+    <origin xyz="0.06 0.0 0.100" rpy="${M_PI} ${-1 * M_PI / 2} 0" />
+    <parent link="gripper_base_link"/>
+    <child link="camera1_base_link"/>
+  </joint>
+
+</robot>

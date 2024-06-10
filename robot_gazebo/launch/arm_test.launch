@@ -1,0 +1,42 @@
+<launch>
+  <!-- 加载机械臂模型到robot_description服务器上 -->
+  <!-- <param name="robot_description" command="$(find xacro)/xacro $(find robot_description)/urdf/robot_test.xacro" /> -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find robot_description)/urdf/arm_d435i.xacro" />
+  <!-- 发布关节状态 -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <!-- 发布TF -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+  <!-- 加载关节控制文件 -->
+  <rosparam file="$(find cr5_description)/config/joint_trajectory_control.yaml" command="load"/>
+  <!-- 关节控制文件参数载入控制器中 -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+  output="screen" args="joint_state_controller arm_controller gripper_controller"/>
+  <!-- 加载世界 -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find robot_gazebo)/config/myroom_has.world"/>
+    <arg name="verbose" value="true" />
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+  <!-- 孵化机器人 -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args="-urdf -model robot -param robot_description"/>
+  <!-- 启动move_group -->
+  <include file="$(find arm_moveit_config)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+  </include>
+  <!-- 启动moveit_rviz -->
+  <include file="$(find arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find arm_moveit_config)/launch/moveit.rviz"/>
+  </include>
+
+</launch>

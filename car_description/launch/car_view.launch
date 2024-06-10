@@ -1,0 +1,10 @@
+<launch>
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find car_description)/urdf/model00_car.xacro" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find car_description)/config/car_view.rviz"/>
+
+</launch>

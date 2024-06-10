@@ -1,0 +1,33 @@
+#控制机械臂关节的控制器
+arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints: [joint1, joint2, joint3, joint4, joint5, joint6]
+  constraints:
+      stopped_velocity_tolerance: 0
+#控制机械臂末端执行器的控制器（没有末端执行器可省略）
+gripper_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints: [finger1_joint, finger2_joint]
+  constraints:
+    stopped_velocity_tolerance: 0
+#发布关节状态的控制器
+joint_state_controller:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+# #控制机械臂关节的控制器
+# arm_controller:
+#   type: "position_controllers/JointTrajectoryController"
+#   joints: [joint1, joint2, joint3, joint4, joint5, joint6]
+#   constraints:
+#       stopped_velocity_tolerance: 0
+# #控制机械臂末端执行器的控制器（没有末端执行器可省略）
+# gripper_controller:
+#   type: "position_controllers/JointTrajectoryController"
+#   joints: [finger_joint]
+#   # constraints:
+#   #   stopped_velocity_tolerance: 0
+# #发布关节状态的控制器
+# joint_state_controller:
+#   type: "joint_state_controller/JointStateController"
+#   publish_rate: 50

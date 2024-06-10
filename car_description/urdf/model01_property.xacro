@@ -1,0 +1,58 @@
+<robot name="car_info" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <!-- 常量属性 -->
+    <xacro:property name="PI" value="3.1415926" />
+
+    <!-- 底盘属性 -->
+    <xacro:property name="base_link_length" value="0.6" />
+    <xacro:property name="base_link_width" value="0.4" />
+    <xacro:property name="base_link_height" value="0.10" />
+    <xacro:property name="base_link_mass" value="0.1" />    <!-- 底盘质量 -->
+    <xacro:property name="earth_space" value="0.04" />    <!-- 离地距离 -->
+    <xacro:property name="base_joint_z" value="${earth_space + base_link_height / 2}" />   <!-- 底盘与基底关节属性 -->
+    
+
+
+    <!-- 驱动轮属性 -->
+    <xacro:property name="drive_wheel_radius" value="0.06" />
+    <xacro:property name="drive_wheel_width" value="0.04" />
+    <xacro:property name="drive_wheel_mass" value="2" />    <!-- 驱动轮质量 -->
+    <!-- 驱动关节属性 -->
+    <xacro:property name="drive_joint_x" value="0" />
+    <xacro:property name="drive_joint_y" value="${base_link_width / 2 + drive_wheel_width / 2}" />        <!-- y= 车宽 / 2 + 车轮宽 / 2  -->
+    <xacro:property name="drive_joint_z" value="${(base_link_height / 2 + earth_space - drive_wheel_radius) * -1}" />   <!-- z= 车体高度 / 2 + 离地间距 - 车轮半径 -->
+
+    <!-- 万向轮属性 -->
+    <xacro:property name="spinner_wheel_radius" value="0.02"/>
+    <xacro:property name="spinner_wheel_mass" value="0.001"/> <!-- 万向轮质量 -->
+    <!-- 万向轮属性关节属性 -->
+    <xacro:property name="spinner_joint_x" value="0.28" />
+    <xacro:property name="spinner_joint_y" value="0.16" />
+    <xacro:property name="spinner_joint_z" value="${(base_link_height / 2 + spinner_wheel_radius) * -1}" />        <!-- z= 车体高度 / 2 + 车轮半径 -->
+
+    <!-- 支撑轮属性 -->
+    <xacro:property name="support_wheel_radius" value="0.04" />
+    <xacro:property name="support_wheel_width" value="0.04" />
+    <xacro:property name="support_wheel_mass" value="0.001" /> 
+    <!-- 支撑轮关节属性 -->
+    <xacro:property name="support_joint_x" value="0.28" />
+    <xacro:property name="support_joint_y" value="${base_link_width / 2 + support_wheel_width / 2}" />
+    <xacro:property name="support_joint_z" value="${(base_link_height / 2 + earth_space - support_wheel_radius) * -1}" /> 
+   
+    <!-- 雷达支架 -->
+    <xacro:property name="sup_length" value="0.06" />
+    <xacro:property name="sup_radius" value="0.01" />
+    <xacro:property name="sup_x" value="0.20" /> 
+    <xacro:property name="sup_y" value="0.0" />
+    <xacro:property name="sup_z" value="${base_link_height / 2 + sup_length / 2}" />
+    <xacro:property name="sup_mass" value="0.02" />
+
+    <!-- 雷达属性 -->
+    <xacro:property name="laser_length" value="0.05" />
+    <xacro:property name="laser_radius" value="0.03" />
+    <xacro:property name="laser_x" value="0.0" />
+    <xacro:property name="laser_y" value="0.0" />
+    <xacro:property name="laser_z" value="${sup_length / 2 + laser_length / 2}" />
+    <xacro:property name="laser_mass" value="0.05" />
+
+</robot>
